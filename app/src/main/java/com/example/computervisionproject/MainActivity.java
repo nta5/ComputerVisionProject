@@ -71,7 +71,11 @@ public class MainActivity extends AppCompatActivity {
             textView.setText("Failed");
         }
     }
-
+//
 //    public void buttonReadVideo(View view) {
+//        String path = Environment.getExternalStorageDirectory().getPath();
+//        String fileName = path + "/Download/" +editText.getText().toString();
+//        bitmap = BitmapFactory.decodeFile(fileName);
+//        imageView.setImageBitmap(bitmap);
 //    }
 }
