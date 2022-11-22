@@ -1,4 +1,4 @@
-package com.example.computervisionproject;
+package com.example.computervisionproject.camera;
 
 import android.content.Context;
 import android.graphics.Canvas;

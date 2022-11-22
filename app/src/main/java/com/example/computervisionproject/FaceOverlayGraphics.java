@@ -3,6 +3,8 @@ package com.example.computervisionproject;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+
+import com.example.computervisionproject.camera.CameraOverlay;
 import com.google.android.gms.vision.face.Face;
 
 class FaceOverlayGraphics extends CameraOverlay.OverlayGraphic {

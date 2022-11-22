@@ -1,4 +1,4 @@
-package com.example.computervisionproject;
+package com.example.computervisionproject.camera;
 
 import android.Manifest;
 import android.content.Context;

@@ -1,7 +1,6 @@
 package com.example.computervisionproject;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -9,11 +8,12 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.computervisionproject.camera.CameraOverlay;
+import com.example.computervisionproject.camera.CameraSurfacePreview;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.vision.CameraSource;
@@ -36,8 +36,8 @@ public class RealtimeFaceDetection extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.realtime_face_detection);
-        mPreview = (CameraSurfacePreview) findViewById(R.id.preview);
-        cameraOverlay = (CameraOverlay) findViewById(R.id.faceOverlay);
+        mPreview = findViewById(R.id.preview);
+        cameraOverlay = findViewById(R.id.faceOverlay);
         int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (rc == PackageManager.PERMISSION_GRANTED) {
             createCameraSource();
@@ -51,17 +51,7 @@ public class RealtimeFaceDetection extends AppCompatActivity {
         if (!ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.CAMERA)) {
             ActivityCompat.requestPermissions(this, permissions, RC_HANDLE_CAMERA_PERM);
-            return;
         }
-
-        final Activity thisActivity = this;
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ActivityCompat.requestPermissions(thisActivity, permissions,
-                        RC_HANDLE_CAMERA_PERM);
-            }
-        };
     }
 
     private void createCameraSource() {

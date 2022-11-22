@@ -14,17 +14,17 @@
         android:keepScreenOn="true"
         android:orientation="vertical">
 
-        <com.example.computervisionproject.CameraSurfacePreview
+        <com.example.computervisionproject.camera.CameraSurfacePreview
             android:id="@+id/preview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.example.computervisionproject.CameraOverlay
+            <com.example.computervisionproject.camera.CameraOverlay
                 android:id="@+id/faceOverlay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-        </com.example.computervisionproject.CameraSurfacePreview>
+        </com.example.computervisionproject.camera.CameraSurfacePreview>
 
     </LinearLayout>
 
