@@ -1,14 +1,20 @@
 package com.example.computervisionproject;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
+
+import androidx.core.app.ActivityCompat;
+
 import com.google.android.gms.common.images.Size;
 import com.google.android.gms.vision.CameraSource;
+
 import java.io.IOException;
 
 public class CameraSurfacePreview extends ViewGroup {
@@ -62,6 +68,9 @@ public class CameraSurfacePreview extends ViewGroup {
 
     private void startIfReady() throws IOException {
         if (mStartRequested && mSurfaceAvailable) {
+            if (ActivityCompat.checkSelfPermission(this.mContext, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
             mCameraSource.start(mSurfaceView.getHolder());
 
             if (mOverlay != null) {

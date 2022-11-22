@@ -12,8 +12,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button ocrButton = findViewById(R.id.ocr);
         Button opencvButton = findViewById(R.id.opencv);
         Button faceButton = findViewById(R.id.face_recognition);
+
+        ocrButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, OcrActivity.class);
+            startActivity(intent);
+        });
 
         opencvButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, OpenCVCamera.class);
