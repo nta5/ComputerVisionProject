@@ -22,12 +22,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         opencvButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, OpenCVCamera.class);
+            Intent intent = new Intent(this, OpenCVCameraActivity.class);
             startActivity(intent);
         });
 
         faceButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, RealtimeFaceDetection.class);
+            Intent intent = new Intent(this, FaceDetectionActivity.class);
             startActivity(intent);
         });
     }

@@ -24,7 +24,7 @@ import com.google.android.gms.vision.face.FaceDetector;
 
 import java.io.IOException;
 
-public class RealtimeFaceDetection extends AppCompatActivity {
+public class FaceDetectionActivity extends AppCompatActivity {
     private static final String TAG = "FaceTrackerDemo";
     private CameraSource mCameraSource = null;
     private CameraSurfacePreview mPreview;
@@ -61,7 +61,7 @@ public class RealtimeFaceDetection extends AppCompatActivity {
                 .build();
 
         detector.setProcessor(
-                new MultiProcessor.Builder<>(new RealtimeFaceDetection.GraphicFaceTrackerFactory())
+                new MultiProcessor.Builder<>(new FaceDetectionActivity.GraphicFaceTrackerFactory())
                         .build());
 
         if (!detector.isOperational()) {
@@ -69,7 +69,6 @@ public class RealtimeFaceDetection extends AppCompatActivity {
         }
 
         mCameraSource = new CameraSource.Builder(context, detector)
-                .setRequestedPreviewSize(640, 480)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
                 .setRequestedFps(30.0f)
                 .build();
@@ -111,11 +110,7 @@ public class RealtimeFaceDetection extends AppCompatActivity {
 
         Log.e(TAG, "Permission not granted: results len = " + grantResults.length +
                 " Result code = " + (grantResults.length > 0 ? grantResults[0] : "(empty)"));
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                finish();
-            }
-        };
+        DialogInterface.OnClickListener listener = (dialog, id) -> finish();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("FaceTrackerDemo")
@@ -147,13 +142,13 @@ public class RealtimeFaceDetection extends AppCompatActivity {
     private class GraphicFaceTrackerFactory implements MultiProcessor.Factory<Face> {
         @Override
         public Tracker<Face> create(Face face) {
-            return new RealtimeFaceDetection.GraphicFaceTracker(cameraOverlay);
+            return new FaceDetectionActivity.GraphicFaceTracker(cameraOverlay);
         }
     }
 
     private class GraphicFaceTracker extends Tracker<Face> {
-        private CameraOverlay mOverlay;
-        private FaceOverlayGraphics faceOverlayGraphics;
+        private final CameraOverlay mOverlay;
+        private final FaceOverlayGraphics faceOverlayGraphics;
         GraphicFaceTracker(CameraOverlay overlay) {
             mOverlay = overlay;
             faceOverlayGraphics = new FaceOverlayGraphics(overlay);

@@ -76,7 +76,6 @@ public class OcrActivity extends AppCompatActivity {
                 .build());
 
         mCameraSource = new CameraSource.Builder(context, textRecognizer)
-                .setRequestedPreviewSize(640, 480)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
                 .setRequestedFps(30.0f)
                 .build();
@@ -118,11 +117,7 @@ public class OcrActivity extends AppCompatActivity {
 
         Log.e(TAG, "Permission not granted: results len = " + grantResults.length +
                 " Result code = " + (grantResults.length > 0 ? grantResults[0] : "(empty)"));
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                finish();
-            }
-        };
+        DialogInterface.OnClickListener listener = (dialog, id) -> finish();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("FaceTrackerDemo")
@@ -164,7 +159,7 @@ public class OcrActivity extends AppCompatActivity {
     }
 
     private class TextTracker extends Tracker<TextBlock> {
-        private TextOverlayGraphics textOverlayGraphics;
+        private final TextOverlayGraphics textOverlayGraphics;
 
         TextTracker() {
             textOverlayGraphics = new TextOverlayGraphics(mOverlay);

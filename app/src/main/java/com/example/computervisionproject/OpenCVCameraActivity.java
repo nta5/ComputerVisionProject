@@ -28,8 +28,8 @@ import org.opencv.imgproc.Imgproc;
 
 import java.util.List;
 
-public class OpenCVCamera extends Activity implements View.OnTouchListener, CameraBridgeViewBase.CvCameraViewListener2 {
-    private static final String TAG = "MainActivity";
+public class OpenCVCameraActivity extends Activity implements View.OnTouchListener, CameraBridgeViewBase.CvCameraViewListener2 {
+    private static final String TAG = "OpenCVCamera";
 
     private boolean mIsColorSelected = false;
     private Mat mRgba;
@@ -45,22 +45,17 @@ public class OpenCVCamera extends Activity implements View.OnTouchListener, Came
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
-            switch (status) {
-                case LoaderCallbackInterface.SUCCESS: {
-                    Log.i(TAG, "OpenCV loaded successfully");
-                    mOpenCvCameraView.enableView();
-                    mOpenCvCameraView.setOnTouchListener(OpenCVCamera.this);
-                }
-                break;
-                default: {
-                    super.onManagerConnected(status);
-                }
-                break;
+            if (status == LoaderCallbackInterface.SUCCESS) {
+                Log.i(TAG, "OpenCV loaded successfully");
+                mOpenCvCameraView.enableView();
+                mOpenCvCameraView.setOnTouchListener(OpenCVCameraActivity.this);
+            } else {
+                super.onManagerConnected(status);
             }
         }
     };
 
-    public OpenCVCamera() {
+    public OpenCVCameraActivity() {
         Log.i(TAG, "Instantiated new " + this.getClass());
     }
 
@@ -69,7 +64,6 @@ public class OpenCVCamera extends Activity implements View.OnTouchListener, Came
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG, "called onCreate");
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -90,7 +84,7 @@ public class OpenCVCamera extends Activity implements View.OnTouchListener, Came
     }
 
     private void activateOpenCVCameraView() {
-        mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.color_blob_detection_activity_surface_view);
+        mOpenCvCameraView = findViewById(R.id.color_blob_detection_activity_surface_view);
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
         mOpenCvCameraView.setCameraPermissionGranted();
@@ -130,7 +124,7 @@ public class OpenCVCamera extends Activity implements View.OnTouchListener, Came
         mSpectrum = new Mat();
         mBlobColorRgba = new Scalar(255);
         mBlobColorHsv = new Scalar(255);
-        SPECTRUM_SIZE = new Size(200, 64);
+        SPECTRUM_SIZE = new Size(200, 100);
         CONTOUR_COLOR = new Scalar(255, 0, 0, 255);
     }
 
@@ -139,6 +133,7 @@ public class OpenCVCamera extends Activity implements View.OnTouchListener, Came
     }
 
     public boolean onTouch(View v, MotionEvent event) {
+        v.performClick();
         int cols = mRgba.cols();
         int rows = mRgba.rows();
 
@@ -197,7 +192,7 @@ public class OpenCVCamera extends Activity implements View.OnTouchListener, Came
             Log.e(TAG, "Contours count: " + contours.size());
             Imgproc.drawContours(mRgba, contours, -1, CONTOUR_COLOR);
 
-            Mat colorLabel = mRgba.submat(4, 68, 4, 68);
+            Mat colorLabel = mRgba.submat(4, 104, 4, 104);
             colorLabel.setTo(mBlobColorRgba);
 
             Mat spectrumLabel = mRgba.submat(4, 4 + mSpectrum.rows(), 70, 70 + mSpectrum.cols());
