@@ -71,4 +71,8 @@ public class MainActivity extends AppCompatActivity {
             textView.setText("Failed");
         }
     }
+
+    public void buttonReadVideo(View view) {
+
+    }
 }

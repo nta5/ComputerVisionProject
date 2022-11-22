@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ComputerVisionProject</string>
+    <string name="read_video">Read Video</string>
 </resources>
