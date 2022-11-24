@@ -14,6 +14,7 @@
         android:text="OpenCV"
         app:layout_constraintBottom_toTopOf="@id/face_recognition"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,5 +27,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/opencv" />
+
+    <Button
+        android:id="@+id/button_facial_expression"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Facial Expression Detection"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/face_recognition" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

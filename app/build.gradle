@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.computervisionproject"
-        minSdk 29
+        minSdk 23
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -29,6 +29,11 @@ android {
 }
 
 dependencies {
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0-rc1'
+    implementation 'org.tensorflow:tensorflow-lite-gpu:2.2.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-task-vision:0.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-task-text:0.1.0'
 
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'

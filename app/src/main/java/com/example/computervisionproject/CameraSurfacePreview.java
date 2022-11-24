@@ -1,5 +1,6 @@
 package com.example.computervisionproject;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.util.AttributeSet;
@@ -60,6 +61,7 @@ public class CameraSurfacePreview extends ViewGroup {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private void startIfReady() throws IOException {
         if (mStartRequested && mSurfaceAvailable) {
             mCameraSource.start(mSurfaceView.getHolder());
