@@ -6,16 +6,23 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.computervisionproject.adapters.MessageAdapter;
+
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
+/**
+ * Client side web socket connection.
+ */
 public class SocketListener extends WebSocketListener {
 
     private Activity activity;
+    private MessageAdapter adapter;
 
-    public SocketListener(Activity activity) {
+    public SocketListener(Activity activity, MessageAdapter adapter) {
         this.activity = activity;
+        this.adapter = adapter;
     }
 
     @Override
@@ -39,7 +46,11 @@ public class SocketListener extends WebSocketListener {
     @Override
     public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
         super.onMessage(webSocket, text);
-        activity.runOnUiThread(() -> Toast.makeText(activity, text, Toast.LENGTH_LONG).show());
+        System.out.println("RECEIVED MESSAGE");
+        activity.runOnUiThread(() -> {
+            System.out.println("Obtained message from the server: " + text);
+            adapter.addItem(text);
+        });
     }
 
     @Override

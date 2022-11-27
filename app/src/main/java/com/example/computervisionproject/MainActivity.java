@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.WebSocket;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -17,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         Button ocr = findViewById(R.id.button_ocr);
         Button face = findViewById(R.id.button_face);
         Button activity = findViewById(R.id.button_activity);
+        Button incomingData = findViewById(R.id.button_incoming_data);
 
         ocr.setOnClickListener(view -> {
             Intent intent = new Intent(this, OcrActivity.class);
@@ -25,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
         face.setOnClickListener(view -> {
             Intent intent = new Intent(this, FaceDetectionActivity.class);
+            startActivity(intent);
+        });
+
+        incomingData.setOnClickListener(view -> {
+            Intent intent = new Intent(this, IncomingDataActivity.class);
             startActivity(intent);
         });
 

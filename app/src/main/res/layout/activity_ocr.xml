@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".OcrActivity">
 
-    <TextView
-        android:id="@+id/extracted_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.362" />
-
     <Button
         android:id="@+id/read_text"
         android:layout_width="wrap_content"
@@ -44,10 +33,20 @@
         android:id="@+id/img_ocr"
         android:layout_width="249dp"
         android:layout_height="271dp"
-        android:layout_marginStart="85dp"
-        android:layout_marginTop="51dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/extracted_text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.456"
         app:srcCompat="@drawable/ic_launcher_background" />
+
+    <ListView
+        android:id="@+id/OCR_listview"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_ocr" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
