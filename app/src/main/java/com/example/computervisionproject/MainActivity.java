@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        incomingData.setOnClickListener(view -> {
+            Intent intent = new Intent(this, IncomingDataActivity.class);
+            startActivity(intent);
+        });
         activity.setOnClickListener(view -> Toast.makeText(this, "NOT IMPLEMENTED YET", Toast.LENGTH_SHORT).show());
     }
 

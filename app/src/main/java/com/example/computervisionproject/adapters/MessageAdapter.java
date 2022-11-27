@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.computervisionproject.R;
@@ -25,6 +26,10 @@ public class MessageAdapter extends BaseAdapter {
     public MessageAdapter(Activity activity) {
         messages = new ArrayList<>();
         this.activity = activity;
+    }
+
+    public List<JSONObject> getMessages() {
+        return messages;
     }
 
     @Override
@@ -49,13 +54,21 @@ public class MessageAdapter extends BaseAdapter {
             view = activity.getLayoutInflater().inflate(R.layout.message_list_item, parent, false);
         }
         // obtain the textview to store the message
-        TextView receivedMessage = view.findViewById(R.id.receivedMessage);
+        TextView OCR_Result = view.findViewById(R.id.ocr_result);
+        TextView face_Result = view.findViewById(R.id.face_result);
 
         JSONObject currentObject = messages.get(position);
         try {
             String message = "client name: " + currentObject.getString("clientName")
                             + "\nclient message: " + currentObject.getString("message");
-            receivedMessage.setText(message);
+            if(currentObject.getString("type").equals("face")) {
+                face_Result.setText(message);
+                OCR_Result.setText("");
+            } else {
+                OCR_Result.setText(message);
+                face_Result.setText("");
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
