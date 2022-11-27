@@ -24,11 +24,16 @@ import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.WebSocket;
 
 public class OcrActivity extends AppCompatActivity {
+
+    private String clientName;
 
     private EditText editText;
     private ImageView imageView;
@@ -46,6 +51,8 @@ public class OcrActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        clientName = String.valueOf(Math.random() * 100);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr);
 
@@ -89,7 +96,14 @@ public class OcrActivity extends AppCompatActivity {
 
             // send the message to the websocket server so it can be broadcast back to all clients
             // (including this one)
-            webSocket.send(stringImageText.toString());
+            JSONObject object = new JSONObject();
+            try {
+                object.put("message", stringImageText.toString());
+                object.put("clientName", clientName);
+                webSocket.send(object.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
         catch (Exception e){
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();

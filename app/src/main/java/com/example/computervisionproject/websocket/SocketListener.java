@@ -8,6 +8,9 @@ import androidx.annotation.Nullable;
 
 import com.example.computervisionproject.adapters.MessageAdapter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
@@ -46,10 +49,13 @@ public class SocketListener extends WebSocketListener {
     @Override
     public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
         super.onMessage(webSocket, text);
-        System.out.println("RECEIVED MESSAGE");
         activity.runOnUiThread(() -> {
-            System.out.println("Obtained message from the server: " + text);
-            adapter.addItem(text);
+            try {
+                JSONObject object = new JSONObject(text);
+                adapter.addItem(object);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         });
     }
 
