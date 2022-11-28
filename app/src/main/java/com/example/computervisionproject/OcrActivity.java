@@ -45,7 +45,7 @@ public class OcrActivity extends AppCompatActivity {
     private void initWebSocket() {
         OkHttpClient client = new OkHttpClient();
         // change -> ws://(your IP):8080"
-        Request request = new Request.Builder().url("ws://192.168.67.142:8080").build();
+        Request request = new Request.Builder().url(SocketListener.url).build();
         webSocket = client.newWebSocket(request, new SocketListener(this, adapter));
     }
 
@@ -76,10 +76,10 @@ public class OcrActivity extends AppCompatActivity {
             String stringFileName = path + "/Download/" + editText.getText().toString();//textinjpeg.jpg
 
             Bitmap bitmap = BitmapFactory.decodeFile(stringFileName);
-            Bitmap topLeft = Bitmap.createBitmap(bitmap, 0,0, bitmap.getWidth()/2,bitmap.getHeight()/2);
-            Bitmap topRight = Bitmap.createBitmap(bitmap, bitmap.getWidth()/2,0, bitmap.getWidth()/2,bitmap.getHeight()/2);
-            Bitmap bottomLeft = Bitmap.createBitmap(bitmap, 0,bitmap.getHeight()/2, bitmap.getWidth()/2,bitmap.getHeight()/2);
-            Bitmap bottomRight = Bitmap.createBitmap(bitmap, bitmap.getWidth()/2,bitmap.getHeight()/2, bitmap.getWidth()/2,bitmap.getHeight()/2);
+            Bitmap topLeft = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+            Bitmap topRight = Bitmap.createBitmap(bitmap, bitmap.getWidth() / 2, 0, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+            Bitmap bottomLeft = Bitmap.createBitmap(bitmap, 0, bitmap.getHeight() / 2, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+            Bitmap bottomRight = Bitmap.createBitmap(bitmap, bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
             imageView.setImageBitmap(bitmap);
 
 
@@ -101,24 +101,24 @@ public class OcrActivity extends AppCompatActivity {
 //            TextBlock textBlock = textBlockSparseArray.get(textBlockSparseArray.keyAt(0));
 //            stringImageText.append(textBlock.getValue());
             stringImageText.append("\n");
-            for (int i = 0; i<2;i++) {
+            for (int i = 0; i < 2; i++) {
                 TextBlock textBlock1 = topLeftBlock.get(topLeftBlock.keyAt(i));
                 stringImageText.append(" ").append(textBlock1.getValue());
             }
             stringImageText.append("\n");
-            for (int i = 0; i<3;i++) {
+            for (int i = 0; i < 3; i++) {
                 TextBlock textBlock2 = topRightBlock.get(topRightBlock.keyAt(i));
                 stringImageText.append(" ").append(textBlock2.getValue());
                 i++;
             }
             stringImageText.append("\n");
-            for (int i = 0; i<3;i++) {
+            for (int i = 0; i < 3; i++) {
                 TextBlock textBlock3 = bottomLeftBlock.get(bottomLeftBlock.keyAt(i));
                 stringImageText.append(" ").append(textBlock3.getValue());
                 i++;
             }
             stringImageText.append("\n");
-            for (int i = 1; i<3;i++) {
+            for (int i = 1; i < 3; i++) {
                 TextBlock textBlock4 = bottomRightBlock.get(bottomRightBlock.keyAt(i));
                 stringImageText.append(" ").append(textBlock4.getValue());
             }
@@ -136,8 +136,7 @@ public class OcrActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
@@ -151,7 +150,6 @@ public class OcrActivity extends AppCompatActivity {
     //        imageView.setImageBitmap(bitmap);
     //    }
 
-    // apps.44472.14266069062940839.7622a220-e3b7-47fe-9320-b2106621e5cb.dd5f8cb2-c6d4-4930-b7dd-81d9c9385116.png
-
 }
+    // apps.44472.14266069062940839.7622a220-e3b7-47fe-9320-b2106621e5cb.dd5f8cb2-c6d4-4930-b7dd-81d9c9385116.png
 
