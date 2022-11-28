@@ -184,8 +184,9 @@ public class FacialExpressionRecognition {
             String emotion_s=get_emotion_text(emotion_v);
 
             try {
+                System.out.println(emotion_s);
                 if(object != null){
-                    object.put("type", "OCR");
+                    object.put("type", "face");
                     object.put("clientName", clientName);
                     object.put("message", emotion_s);
 
