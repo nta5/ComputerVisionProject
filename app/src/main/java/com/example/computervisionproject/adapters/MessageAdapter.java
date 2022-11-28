@@ -23,9 +23,12 @@ public class MessageAdapter extends BaseAdapter {
     private List<JSONObject> messages;
     private Activity activity;
 
-    public MessageAdapter(Activity activity) {
+    private String name;
+
+    public MessageAdapter(Activity activity, String name) {
         messages = new ArrayList<>();
         this.activity = activity;
+        this.name = name;
     }
 
     public List<JSONObject> getMessages() {
@@ -54,21 +57,17 @@ public class MessageAdapter extends BaseAdapter {
             view = activity.getLayoutInflater().inflate(R.layout.message_list_item, parent, false);
         }
         // obtain the textview to store the message
-        TextView OCR_Result = view.findViewById(R.id.ocr_result);
-        TextView face_Result = view.findViewById(R.id.face_result);
+        TextView resultTextView = view.findViewById(R.id.result_tv);
 
         JSONObject currentObject = messages.get(position);
         try {
+
+
+
             String message = "client name: " + currentObject.getString("clientName")
                             + "\nclient message: " + currentObject.getString("message");
-            if(currentObject.getString("type").equals("face")) {
-                face_Result.setText(message);
-                OCR_Result.setText("");
-            } else {
-                OCR_Result.setText(message);
-                face_Result.setText("");
-            }
 
+            resultTextView.setText(message);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -80,6 +79,10 @@ public class MessageAdapter extends BaseAdapter {
 
         // updates the message list to include this new message
         notifyDataSetChanged();
+    }
+
+    public String getName() {
+        return name;
     }
 
 }

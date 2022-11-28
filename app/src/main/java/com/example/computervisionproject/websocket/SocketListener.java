@@ -20,6 +20,8 @@ import okhttp3.WebSocketListener;
  */
 public class SocketListener extends WebSocketListener {
 
+    public static final String url = "ws://192.168.67.85:8080";
+
     private Activity activity;
     private MessageAdapter adapter;
 
@@ -52,7 +54,11 @@ public class SocketListener extends WebSocketListener {
         activity.runOnUiThread(() -> {
             try {
                 JSONObject object = new JSONObject(text);
-                adapter.addItem(object);
+
+                // if the type of this data corresponds to the name, add it to the adapter
+                if(object.getString("type").equals(adapter.getName())) {
+                    adapter.addItem(object);
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }

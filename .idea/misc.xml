@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Term3/ClientServer/TermProject/ComputerVisionProject/app/src/main/res/layout/activity_incoming_data.xml" value="0.25" />
+        <entry key="..\:/Term3/ClientServer/TermProject/ComputerVisionProject/app/src/main/res/layout/activity_ocr_camera.xml" value="0.1" />
+        <entry key="..\:/Term3/ClientServer/TermProject/ComputerVisionProject/app/src/main/res/layout/message_list_item.xml" value="0.1" />
         <entry key="..\:/client-server/ComputerVisionProject/app/src/main/res/layout/activity_main.xml" value="0.1453900709219858" />
         <entry key="..\:/client-server/ComputerVisionProject/app/src/main/res/layout/surfaceview.xml" value="0.14488348530901723" />
       </map>
