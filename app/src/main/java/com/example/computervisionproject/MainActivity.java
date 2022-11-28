@@ -4,11 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.opencv.android.OpenCVLoader;
+
 
 public class MainActivity extends AppCompatActivity {
+    static {
+        if(OpenCVLoader.initDebug()){
+            Log.d("MainActivity: ","OpenCV is loaded");
+        }
+        else {
+            Log.d("MainActivity: ","OpenCV failed to load");
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
