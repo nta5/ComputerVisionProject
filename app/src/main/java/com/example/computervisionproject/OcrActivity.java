@@ -45,7 +45,7 @@ public class OcrActivity extends AppCompatActivity {
     private void initWebSocket() {
         OkHttpClient client = new OkHttpClient();
         // change -> ws://(your IP):8080"
-        Request request = new Request.Builder().url("ws://192.168.1.30:8080").build();
+        Request request = new Request.Builder().url(SocketListener.url).build();
         webSocket = client.newWebSocket(request, new SocketListener(this, adapter));
     }
 
@@ -64,7 +64,7 @@ public class OcrActivity extends AppCompatActivity {
         editText = findViewById(R.id.img_link_ocr);
         imageView = findViewById(R.id.img_ocr);
         OCR_List = findViewById(R.id.OCR_listview);
-        adapter = new MessageAdapter(this);
+        adapter = new MessageAdapter(this, "ocr");
         OCR_List.setAdapter(adapter);
         initWebSocket();
     }
@@ -95,7 +95,7 @@ public class OcrActivity extends AppCompatActivity {
             // (including this one)
             JSONObject object = new JSONObject();
             try {
-                object.put("type", "OCR");
+                object.put("type", "ocr");
                 object.put("message", stringImageText.toString());
                 object.put("clientName", clientName);
                 webSocket.send(object.toString());
@@ -116,5 +116,7 @@ public class OcrActivity extends AppCompatActivity {
     //        bitmap = BitmapFactory.decodeFile(fileName);
     //        imageView.setImageBitmap(bitmap);
     //    }
+
+    // apps.44472.14266069062940839.7622a220-e3b7-47fe-9320-b2106621e5cb.dd5f8cb2-c6d4-4930-b7dd-81d9c9385116.png
 
 }
