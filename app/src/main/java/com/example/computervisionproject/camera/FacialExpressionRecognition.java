@@ -59,9 +59,9 @@ public class FacialExpressionRecognition {
     // now call this in CameraActivity
     public FacialExpressionRecognition(AssetManager assetManager, Context context, String modelPath,
                                        int inputSize, WebSocket webSocket, JSONObject object, String clientName) throws IOException {
-        webSocket = webSocket;
-        object = object;
-        clientName = clientName;
+        this.webSocket = webSocket;
+        this.object = object;
+        this.clientName = clientName;
 
         INPUT_SIZE=inputSize;
         // set GPU for the interpreter
