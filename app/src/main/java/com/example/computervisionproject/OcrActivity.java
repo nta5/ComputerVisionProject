@@ -45,7 +45,7 @@ public class OcrActivity extends AppCompatActivity {
     private void initWebSocket() {
         OkHttpClient client = new OkHttpClient();
         // change -> ws://(your IP):8080"
-        Request request = new Request.Builder().url("ws://192.168.1.30:8080").build();
+        Request request = new Request.Builder().url("ws://192.168.67.142:8080").build();
         webSocket = client.newWebSocket(request, new SocketListener(this, adapter));
     }
 
@@ -76,19 +76,53 @@ public class OcrActivity extends AppCompatActivity {
             String stringFileName = path + "/Download/" + editText.getText().toString();//textinjpeg.jpg
 
             Bitmap bitmap = BitmapFactory.decodeFile(stringFileName);
+            Bitmap topLeft = Bitmap.createBitmap(bitmap, 0,0, bitmap.getWidth()/2,bitmap.getHeight()/2);
+            Bitmap topRight = Bitmap.createBitmap(bitmap, bitmap.getWidth()/2,0, bitmap.getWidth()/2,bitmap.getHeight()/2);
+            Bitmap bottomLeft = Bitmap.createBitmap(bitmap, 0,bitmap.getHeight()/2, bitmap.getWidth()/2,bitmap.getHeight()/2);
+            Bitmap bottomRight = Bitmap.createBitmap(bitmap, bitmap.getWidth()/2,bitmap.getHeight()/2, bitmap.getWidth()/2,bitmap.getHeight()/2);
             imageView.setImageBitmap(bitmap);
 
 
             TextRecognizer textRecognizer = new TextRecognizer.Builder(this).build();
-            Frame frameImage = new Frame.Builder().setBitmap(bitmap).build();
-            Log.d("hi", "here " +frameImage);
 
-            SparseArray<TextBlock> textBlockSparseArray = textRecognizer.detect(frameImage);
+            Frame topLeftFrame = new Frame.Builder().setBitmap(topLeft).build();
+            SparseArray<TextBlock> topLeftBlock = textRecognizer.detect(topLeftFrame);
+
+            Frame topRightFrame = new Frame.Builder().setBitmap(topRight).build();
+            SparseArray<TextBlock> topRightBlock = textRecognizer.detect(topRightFrame);
+
+            Frame bottomLeftFrame = new Frame.Builder().setBitmap(bottomLeft).build();
+            SparseArray<TextBlock> bottomLeftBlock = textRecognizer.detect(bottomLeftFrame);
+
+            Frame bottomRightFrame = new Frame.Builder().setBitmap(bottomRight).build();
+            SparseArray<TextBlock> bottomRightBlock = textRecognizer.detect(bottomRightFrame);
+
             StringBuilder stringImageText = new StringBuilder();
-            for (int i = 0; i<textBlockSparseArray.size();i++){
-                TextBlock textBlock = textBlockSparseArray.get(textBlockSparseArray.keyAt(i));
-                stringImageText.append(" ").append(textBlock.getValue());
+//            TextBlock textBlock = textBlockSparseArray.get(textBlockSparseArray.keyAt(0));
+//            stringImageText.append(textBlock.getValue());
+            stringImageText.append("\n");
+            for (int i = 0; i<2;i++) {
+                TextBlock textBlock1 = topLeftBlock.get(topLeftBlock.keyAt(i));
+                stringImageText.append(" ").append(textBlock1.getValue());
             }
+            stringImageText.append("\n");
+            for (int i = 0; i<3;i++) {
+                TextBlock textBlock2 = topRightBlock.get(topRightBlock.keyAt(i));
+                stringImageText.append(" ").append(textBlock2.getValue());
+                i++;
+            }
+            stringImageText.append("\n");
+            for (int i = 0; i<3;i++) {
+                TextBlock textBlock3 = bottomLeftBlock.get(bottomLeftBlock.keyAt(i));
+                stringImageText.append(" ").append(textBlock3.getValue());
+                i++;
+            }
+            stringImageText.append("\n");
+            for (int i = 1; i<3;i++) {
+                TextBlock textBlock4 = bottomRightBlock.get(bottomRightBlock.keyAt(i));
+                stringImageText.append(" ").append(textBlock4.getValue());
+            }
+
             Log.d("hi", "string " + stringImageText);
 
             // send the message to the websocket server so it can be broadcast back to all clients
@@ -118,3 +152,4 @@ public class OcrActivity extends AppCompatActivity {
     //    }
 
 }
+
