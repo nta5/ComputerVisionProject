@@ -56,7 +56,7 @@ public class OcrCameraActivity extends AppCompatActivity {
 
     // initialize web socket connection
     private void initWebSocket() {
-        adapter = new MessageAdapter(this);
+        adapter = new MessageAdapter(this, "ocrCamera");
         OkHttpClient client = new OkHttpClient();
         // change -> ws://(your IP):8080"
         Request request = new Request.Builder().url("ws://192.168.1.30:8080").build();
@@ -104,7 +104,7 @@ public class OcrCameraActivity extends AppCompatActivity {
 
         mCameraSource = new CameraSource.Builder(context, textRecognizer)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
-                .setRequestedFps(30.0f)
+                .setRequestedFps(1.0f)
                 .build();
     }
 

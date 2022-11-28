@@ -69,7 +69,7 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
 
     // initialize web socket connection
     private void initWebSocket() {
-        adapter = new MessageAdapter(this);
+        adapter = new MessageAdapter(this, "face");
         OkHttpClient client = new OkHttpClient();
         // change -> ws://(your IP):8080"
         Request request = new Request.Builder().url("ws://192.168.1.30:8080").build();
