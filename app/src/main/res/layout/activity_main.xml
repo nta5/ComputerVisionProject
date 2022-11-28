@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:onClick="buttonReadText"
         android:text="Read Text"
-        android:layout_below="@+id/videoBtn"
+        android:layout_below="@+id/button_ocr_camera"
         android:layout_marginVertical="10dp"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
@@ -46,10 +46,9 @@
         android:layout_below="@id/button_activity"/>
 
     <Button
-        android:id="@+id/videoBtn"
+        android:id="@+id/button_ocr_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="buttonReadVideo"
         android:text="@string/read_video"
         android:layout_marginTop="100dp"
         android:layout_centerHorizontal="true" />
