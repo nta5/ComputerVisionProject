@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -21,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         Button face = findViewById(R.id.button_face);
         Button activity = findViewById(R.id.button_activity);
         Button incomingData = findViewById(R.id.button_incoming_data);
+        Button facialDetection = findViewById(R.id.button_facial_detection);
 
         ocrCamera.setOnClickListener(view -> {
             Intent intent = new Intent(this, OcrCameraActivity.class);
@@ -39,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
 
         incomingData.setOnClickListener(view -> {
             Intent intent = new Intent(this, IncomingDataActivity.class);
+            startActivity(intent);
+        });
+
+        facialDetection.setOnClickListener(view -> {
+            Intent intent = new Intent(this, CameraActivity.class);
             startActivity(intent);
         });
         activity.setOnClickListener(view -> Toast.makeText(this, "NOT IMPLEMENTED YET", Toast.LENGTH_SHORT).show());
