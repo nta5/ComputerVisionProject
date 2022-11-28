@@ -11,55 +11,61 @@
         android:id="@+id/button_ocr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/button_ocr_camera"
         android:layout_centerHorizontal="true"
+        android:layout_marginVertical="10dp"
+        android:minWidth="200dp"
         android:onClick="buttonReadText"
         android:text="Read Text"
-        android:layout_below="@+id/button_ocr_camera"
-        android:layout_marginVertical="10dp"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <Button
         android:id="@+id/button_face"
-        android:layout_marginVertical="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Facial Detection"
         android:layout_below="@+id/button_ocr"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="10dp"
+        android:minWidth="200dp"
+        android:text="Facial Detection" />
 
     <Button
         android:id="@+id/button_activity"
-        android:layout_marginVertical="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Activity Detection"
+        android:layout_below="@+id/button_face"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/button_face"/>
+        android:layout_marginVertical="10dp"
+        android:minWidth="200dp"
+        android:text="Activity Detection" />
 
     <Button
         android:id="@+id/button_incoming_data"
-        android:layout_marginVertical="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Incoming Data"
+        android:layout_below="@id/button_activity"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/button_activity"/>
+        android:layout_marginVertical="10dp"
+        android:minWidth="200dp"
+        android:text="Incoming Data" />
 
     <Button
         android:id="@+id/button_ocr_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/read_video"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:layout_centerHorizontal="true" />
+        android:minWidth="200dp"
+        android:text="@string/read_video" />
 
     <Button
         android:id="@+id/button_facial_detection"
-        android:layout_marginVertical="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Facial Expression Detection"
+        android:layout_below="@id/button_incoming_data"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/button_incoming_data"/>
+        android:layout_marginVertical="10dp"
+        android:minWidth="200dp"
+        android:text="Facial Expression Detection" />
 
 </RelativeLayout>
