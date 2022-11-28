@@ -86,7 +86,7 @@ public class FacialExpressionRecognition {
             // close input and output stream
             is.close();
             os.close();
-//            cascadeClassifier = new CascadeClassifier(mCascadeFile.getAbsolutePath());
+            cascadeClassifier = new CascadeClassifier(mCascadeFile.getAbsolutePath());
             // if cascade file is loaded print
             Log.d("facial_Expression","Classifier is loaded");
             // check your code one more time
