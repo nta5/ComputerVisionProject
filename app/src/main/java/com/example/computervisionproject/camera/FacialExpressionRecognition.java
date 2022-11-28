@@ -8,6 +8,8 @@ import android.util.Log;
 
 import com.example.computervisionproject.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -32,6 +34,8 @@ import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 
+import okhttp3.WebSocket;
+
 public class FacialExpressionRecognition {
     // define interpreter
     // Before this implement tensorflow to build.gradle file
@@ -48,8 +52,17 @@ public class FacialExpressionRecognition {
     // now define cascadeClassifier for face detection
     private CascadeClassifier cascadeClassifier;
 
+    private WebSocket webSocket;
+    private JSONObject object;
+    private String clientName;
+
     // now call this in CameraActivity
-    public FacialExpressionRecognition(AssetManager assetManager, Context context, String modelPath, int inputSize) throws IOException {
+    public FacialExpressionRecognition(AssetManager assetManager, Context context, String modelPath,
+                                       int inputSize, WebSocket webSocket, JSONObject object, String clientName) throws IOException {
+        webSocket = webSocket;
+        object = object;
+        clientName = clientName;
+
         INPUT_SIZE=inputSize;
         // set GPU for the interpreter
         Interpreter.Options options=new Interpreter.Options();
@@ -169,6 +182,19 @@ public class FacialExpressionRecognition {
             Log.d("facial_expression","Output:  "+ emotion_v);
             // create a function that return text emotion
             String emotion_s=get_emotion_text(emotion_v);
+
+            try {
+                if(object != null){
+                    object.put("type", "OCR");
+                    object.put("clientName", clientName);
+                    object.put("message", emotion_s);
+
+                    webSocket.send(object.toString());
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             // now put text on original frame(mat_image)
             //             input/output    text: Angry (2.934234)
             Imgproc.putText(mat_image,emotion_s+" ("+emotion_v+")",
