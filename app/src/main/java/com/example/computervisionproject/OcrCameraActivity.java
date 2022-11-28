@@ -17,8 +17,10 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.widget.TextView;
 
+import com.example.computervisionproject.adapters.MessageAdapter;
 import com.example.computervisionproject.camera.CameraOverlay;
 import com.example.computervisionproject.camera.CameraSurfacePreview;
+import com.example.computervisionproject.websocket.SocketListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.vision.CameraSource;
@@ -28,7 +30,14 @@ import com.google.android.gms.vision.Tracker;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.WebSocket;
 
 public class OcrCameraActivity extends AppCompatActivity {
 
@@ -40,6 +49,19 @@ public class OcrCameraActivity extends AppCompatActivity {
     private CameraOverlay mOverlay;
     private static final int RC_HANDLE_GMS = 9001;
     private static final int RC_HANDLE_CAMERA_PERM = 2;
+
+    private WebSocket webSocket;
+    private MessageAdapter adapter;
+    private String clientName;
+
+    // initialize web socket connection
+    private void initWebSocket() {
+        adapter = new MessageAdapter(this);
+        OkHttpClient client = new OkHttpClient();
+        // change -> ws://(your IP):8080"
+        Request request = new Request.Builder().url("ws://192.168.1.30:8080").build();
+        webSocket = client.newWebSocket(request, new SocketListener(this, adapter));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +82,8 @@ public class OcrCameraActivity extends AppCompatActivity {
         } else {
             requestCameraPermission();
         }
+        clientName = String.valueOf(Math.random() * 100);
+        initWebSocket();
     }
 
     private void requestCameraPermission() {
@@ -178,6 +202,20 @@ public class OcrCameraActivity extends AppCompatActivity {
                 stringImageText += " " + block.getValue();
             }
             textView.setText(stringImageText);
+
+            JSONObject object = new JSONObject();
+
+            try {
+                object.put("type", "OCR");
+                object.put("clientName", clientName);
+                object.put("message", textBlock.getValue());
+
+                webSocket.send(object.toString());
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             mOverlay.add(textOverlayGraphics);
             textOverlayGraphics.updateTextBlock(textBlock);
         }
