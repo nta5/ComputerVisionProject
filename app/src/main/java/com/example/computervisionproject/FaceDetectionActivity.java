@@ -66,7 +66,7 @@ public class FaceDetectionActivity extends AppCompatActivity {
     private void initWebSocket() {
         OkHttpClient client = new OkHttpClient();
         // change -> ws://(your IP):8080"
-        Request request = new Request.Builder().url("ws://192.168.1.30:8080").build();
+        Request request = new Request.Builder().url(SocketListener.url).build();
         webSocket = client.newWebSocket(request, new SocketListener(this, adapter));
     }
 
@@ -88,18 +88,18 @@ public class FaceDetectionActivity extends AppCompatActivity {
 
         detectFace.setOnClickListener(this::detectFace);
         clientName = String.valueOf(Math.random() * 100);
-        adapter = new MessageAdapter(this);
+        adapter = new MessageAdapter(this, "face");
         initWebSocket();
     }
 
-    public void detectFace(View view){
+    public void detectFace(View view) {
         InputImage image;
         String path = Environment.getExternalStorageDirectory().getPath();
         String stringFileName = path + "/Download/" + imgLink.getText().toString();//textinjpeg.jpg
         Bitmap imgBitMap = BitmapFactory.decodeFile(stringFileName);
         imageView.setImageBitmap(imgBitMap);
 
-        image =InputImage.fromBitmap(imgBitMap, 0);
+        image = InputImage.fromBitmap(imgBitMap, 0);
 
         FaceDetector detector = FaceDetection.getClient(options);
         Task<List<Face>> result =
@@ -121,7 +121,7 @@ public class FaceDetectionActivity extends AppCompatActivity {
                                             try {
                                                 object.put("type", "face");
                                                 object.put("clientName", clientName);
-                                                if(smileProb < 0.5) {
+                                                if (smileProb < 0.5) {
                                                     resultText.setText("not smiling");
                                                     object.put("message", "not smiling much sad");
                                                 } else {
@@ -151,5 +151,6 @@ public class FaceDetectionActivity extends AppCompatActivity {
 
 
     }
+    //JermaSus.jpg
 
 }
