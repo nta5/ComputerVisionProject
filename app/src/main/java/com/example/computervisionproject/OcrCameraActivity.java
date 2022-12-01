@@ -206,7 +206,7 @@ public class OcrCameraActivity extends AppCompatActivity {
             JSONObject object = new JSONObject();
 
             try {
-                object.put("type", "OCR");
+                object.put("type", "ocrCamera");
                 object.put("clientName", clientName);
                 object.put("message", textBlock.getValue());
 
