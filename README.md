@@ -13,9 +13,9 @@ you can go to the incoming data page.
 Project setup instructions:
 
 1) Server:
-  a. Begin by installing node js as that is what we are running our server on: https://nodejs.org/en/download/
-  b. make sure you have all the packages installed; open up the command line in the "ComputerVisionServer" and type the following: npm i
-  c. to start the server type: node server.js
+  a) Begin by installing node js as that is what we are running our server on: https://nodejs.org/en/download/
+  b) make sure you have all the packages installed; open up the command line in the "ComputerVisionServer" and type the following: npm i
+  c) to start the server type: node server.js
   
 2) Client:
   a) All our clients are on android for this project, so make sure you have android studio installed and open it with that.
